@@ -350,7 +350,7 @@ jobs:
           pushd ./res/msi
           # SYSINFRA: MSI-Ordner/Name = App-Name; exe muss {app_name}.exe heissen (cwd=res/msi)
           mv "../../rustdesk/rustdesk.exe" "../../rustdesk/Remotesupport SYSINFRA.exe"
-          python preprocess.py --arp --app-name "Remotesupport SYSINFRA" -d ../../rustdesk
+          python preprocess.py --arp --app-name "Remotesupport SYSINFRA" --manufacturer "SYSINFRA" -d ../../rustdesk
           nuget restore msi.sln
           $msiPlatform = if ('${{ matrix.job.arch }}' -eq 'aarch64') { 'ARM64' } else { 'x64' }
           msbuild msi.sln -p:Configuration=Release -p:Platform=$msiPlatform /p:TargetVersion=Windows10
