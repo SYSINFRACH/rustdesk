@@ -128,13 +128,13 @@ jobs:
           # Server/Key/API hart einkompilieren (grep -q = fail loud wenn Upstream-Pattern wandert)
           sed -i 's|&\["rs-ny.rustdesk.com"\]|\&["rds.sysinfra.ch"]|' $CFG
           sed -i 's|OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|B8AbS3c8qucDqKQ+keGSSBLrDHfcME13ch+SWsYaa4o=|' $CFG
-          sed -i 's|RwLock::new("RustDesk".to_owned())|RwLock::new("SYSINFRA Remote".to_owned())|' $CFG
+          sed -i 's|RwLock::new("RustDesk".to_owned())|RwLock::new("Remotesupport SYSINFRA".to_owned())|' $CFG
           sed -i 's|https://admin.rustdesk.com|https://rds.sysinfra.ch|g' $CFG || true
           grep -q 'rds.sysinfra.ch' $CFG
           grep -q 'B8AbS3c8' $CFG
-          grep -q 'SYSINFRA Remote' $CFG
+          grep -q 'Remotesupport SYSINFRA' $CFG
           # Sichtbare Produkt-Strings (Windows-Metadaten)
-          sed -i 's|"RustDesk Remote Desktop" "\\0"|"SYSINFRA Fernwartung" "\\0"|; s|"RustDesk" "\\0"|"SYSINFRA Remote" "\\0"|' flutter/windows/runner/Runner.rc
+          sed -i 's|"RustDesk Remote Desktop" "\\0"|"SYSINFRA Fernwartung" "\\0"|; s|"RustDesk" "\\0"|"Remotesupport SYSINFRA" "\\0"|' flutter/windows/runner/Runner.rc
           # Icons
           for f in icon.ico icon.png 32x32.png 64x64.png 128x128.png 128x128@2x.png tray-icon.ico; do
             cp "res/sysinfra/$f" "res/$f"
