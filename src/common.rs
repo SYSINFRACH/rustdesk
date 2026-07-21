@@ -122,6 +122,23 @@ impl Drop for SimpleCallOnReturn {
 }
 
 pub fn global_init() -> bool {
+    // SYSINFRA-HARDWIRE: Server/Key/API fest (OVERWRITE = Felder gefuellt + gesperrt),
+    // Name gesetzt, Update-Phone-Home an api.rustdesk.com aus (revDSG).
+    {
+        use hbb_common::config::{keys, APP_NAME, OVERWRITE_LOCAL_SETTINGS, OVERWRITE_SETTINGS};
+        {
+            let mut o = OVERWRITE_SETTINGS.write().unwrap();
+            o.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "rds.sysinfra.ch".to_string());
+            o.insert(keys::OPTION_RELAY_SERVER.to_string(), "rds.sysinfra.ch".to_string());
+            o.insert(keys::OPTION_KEY.to_string(), "B8AbS3c8qucDqKQ+keGSSBLrDHfcME13ch+SWsYaa4o=".to_string());
+            o.insert(keys::OPTION_API_SERVER.to_string(), "https://rds.sysinfra.ch".to_string());
+        }
+        {
+            let mut l = OVERWRITE_LOCAL_SETTINGS.write().unwrap();
+            l.insert(keys::OPTION_ENABLE_CHECK_UPDATE.to_string(), "N".to_string());
+        }
+        *APP_NAME.write().unwrap() = "SYSINFRA Remote".to_string();
+    }
     #[cfg(target_os = "linux")]
     {
         if !crate::platform::linux::is_x11() {
