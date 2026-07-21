@@ -134,7 +134,7 @@ jobs:
           grep -q 'B8AbS3c8' $CFG
           grep -q 'Remotesupport SYSINFRA' $CFG
           # Sichtbare Produkt-Strings (Windows-Metadaten)
-          sed -i 's|"RustDesk Remote Desktop" "\\0"|"SYSINFRA Fernwartung" "\\0"|; s|"RustDesk" "\\0"|"Remotesupport SYSINFRA" "\\0"|' flutter/windows/runner/Runner.rc
+          sed -i 's|"RustDesk Remote Desktop" "\\0"|"Remotesupport SYSINFRA" "\\0"|; s|"RustDesk" "\\0"|"Remotesupport SYSINFRA" "\\0"|' flutter/windows/runner/Runner.rc
           # Icons
           for f in icon.ico icon.png 32x32.png 64x64.png 128x128.png 128x128@2x.png tray-icon.ico; do
             cp "res/sysinfra/$f" "res/$f"
