@@ -1,9 +1,8 @@
 name: Flutter Nightly Build
 
 on:
-  schedule:
-    # schedule build every night
-    - cron: "0 0 * * *"
+  # SYSINFRA: Cron deaktiviert — wir bauen on-demand (naechtliche Builds
+  # ueberschrieben sonst die Kunden-Assets mit Default-Namen).
   workflow_dispatch:
 
 jobs:
