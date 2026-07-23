@@ -128,13 +128,13 @@ jobs:
           # Server/Key/API hart einkompilieren (grep -q = fail loud wenn Upstream-Pattern wandert)
           sed -i 's|&\["rs-ny.rustdesk.com"\]|\&["rds.sysinfra.ch"]|' $CFG
           sed -i 's|OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|B8AbS3c8qucDqKQ+keGSSBLrDHfcME13ch+SWsYaa4o=|' $CFG
-          sed -i 's|RwLock::new("RustDesk".to_owned())|RwLock::new("Remotesupport SYSINFRA".to_owned())|' $CFG
+          sed -i 's|RwLock::new("RustDesk".to_owned())|RwLock::new("Fernwartung SYSINFRA".to_owned())|' $CFG
           sed -i 's|https://admin.rustdesk.com|https://rds.sysinfra.ch|g' $CFG || true
           grep -q 'rds.sysinfra.ch' $CFG
           grep -q 'B8AbS3c8' $CFG
-          grep -q 'Remotesupport SYSINFRA' $CFG
+          grep -q 'Fernwartung SYSINFRA' $CFG
           # Sichtbare Produkt-Strings (Windows-Metadaten)
-          sed -i 's|"RustDesk Remote Desktop" "\\0"|"Remotesupport SYSINFRA" "\\0"|; s|"RustDesk" "\\0"|"Remotesupport SYSINFRA" "\\0"|' flutter/windows/runner/Runner.rc
+          sed -i 's|"RustDesk Remote Desktop" "\\0"|"Fernwartung SYSINFRA" "\\0"|; s|"RustDesk" "\\0"|"Fernwartung SYSINFRA" "\\0"|' flutter/windows/runner/Runner.rc
           # Icons
           for f in icon.ico icon.png 32x32.png 64x64.png 128x128.png 128x128@2x.png tray-icon.ico; do
             cp "res/sysinfra/$f" "res/$f"
@@ -336,7 +336,7 @@ jobs:
           python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/rustdesk.exe
           popd
           mkdir -p ./SignOutput
-          mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/remotesupport-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
+          mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/fernwartung-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
@@ -349,14 +349,14 @@ jobs:
         run: |
           pushd ./res/msi
           # SYSINFRA: MSI-Ordner/Name = App-Name; exe muss {app_name}.exe heissen (cwd=res/msi)
-          mv "../../rustdesk/rustdesk.exe" "../../rustdesk/Remotesupport SYSINFRA.exe"
-          python preprocess.py --arp --app-name "Remotesupport SYSINFRA" --manufacturer "SYSINFRA" -d ../../rustdesk
+          mv "../../rustdesk/rustdesk.exe" "../../rustdesk/Fernwartung SYSINFRA.exe"
+          python preprocess.py --arp --app-name "Fernwartung SYSINFRA" --manufacturer "SYSINFRA" -d ../../rustdesk
           nuget restore msi.sln
           $msiPlatform = if ('${{ matrix.job.arch }}' -eq 'aarch64') { 'ARM64' } else { 'x64' }
           msbuild msi.sln -p:Configuration=Release -p:Platform=$msiPlatform /p:TargetVersion=Windows10
           $msi = Get-ChildItem ./Package/bin/*/Release/en-us/Package.msi | Select-Object -First 1
-          mv $msi.FullName ../../SignOutput/remotesupport-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}.msi
-          sha256sum ../../SignOutput/remotesupport-sysinfra-*.msi
+          mv $msi.FullName ../../SignOutput/fernwartung-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}.msi
+          sha256sum ../../SignOutput/fernwartung-sysinfra-*.msi
 
       - name: Sign rustdesk self-extracted file
         if: env.UPLOAD_ARTIFACT == 'true' && env.SIGN_BASE_URL != '-2'
@@ -371,8 +371,8 @@ jobs:
           prerelease: true
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            ./SignOutput/remotesupport-sysinfra-*.msi
-            ./SignOutput/remotesupport-sysinfra-*.exe
+            ./SignOutput/fernwartung-sysinfra-*.msi
+            ./SignOutput/fernwartung-sysinfra-*.exe
 
   # The fallback for the flutter version, we use Sciter for 32bit Windows.
   build-for-windows-sciter:
@@ -510,7 +510,7 @@ jobs:
           python3 ./generate.py -f ../../Release/ -o . -e ../../Release/rustdesk.exe
           popd
           mkdir -p ./SignOutput
-          mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/remotesupport-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}-sciter.exe
+          mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/fernwartung-sysinfra-${{ env.VERSION }}-${{ matrix.job.arch }}-sciter.exe
 
       - name: Sign rustdesk self-extracted file
         if: env.UPLOAD_ARTIFACT == 'true' && env.SIGN_BASE_URL != '-2'
@@ -525,7 +525,7 @@ jobs:
           prerelease: true
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            ./SignOutput/remotesupport-sysinfra-*.exe
+            ./SignOutput/fernwartung-sysinfra-*.exe
 
   build-rustdesk-ios:
     if: ${{ false }}

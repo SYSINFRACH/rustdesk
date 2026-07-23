@@ -137,7 +137,7 @@ pub fn global_init() -> bool {
             let mut l = OVERWRITE_LOCAL_SETTINGS.write().unwrap();
             l.insert(keys::OPTION_ENABLE_CHECK_UPDATE.to_string(), "N".to_string());
         }
-        *APP_NAME.write().unwrap() = "Remotesupport SYSINFRA".to_string();
+        *APP_NAME.write().unwrap() = "Fernwartung SYSINFRA".to_string();
     }
     #[cfg(target_os = "linux")]
     {

@@ -2429,7 +2429,7 @@ class _AboutState extends State<_About> {
       final scrollController = ScrollController();
       return SingleChildScrollView(
         controller: scrollController,
-        child: _Card(title: 'Über Remotesupport SYSINFRA', children: [
+        child: _Card(title: 'Über Fernwartung SYSINFRA', children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -2482,7 +2482,7 @@ class _AboutState extends State<_About> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Remotesupport SYSINFRA · © ${DateTime.now().toString().substring(0, 4)} SYSINFRA\nBasiert auf RustDesk (AGPL-3.0) · Copyright © ${DateTime.now().toString().substring(0, 4)} Purslane Tech Pte. Ltd.\n$license',
+                            'Fernwartung SYSINFRA · © ${DateTime.now().toString().substring(0, 4)} SYSINFRA\nBasiert auf RustDesk (AGPL-3.0) · Copyright © ${DateTime.now().toString().substring(0, 4)} Purslane Tech Pte. Ltd.\n$license',
                             style: const TextStyle(color: Colors.white),
                           ),
                           Text(

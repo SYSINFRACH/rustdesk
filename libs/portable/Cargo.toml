@@ -2,7 +2,7 @@
 name = "rustdesk-portable-packer"
 version = "1.4.9"
 edition = "2021"
-description = "Remotesupport SYSINFRA"
+description = "Fernwartung SYSINFRA"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -27,9 +27,9 @@ native-windows-gui = {version = "1.0", default-features = false, features = ["an
 
 [package.metadata.winres]
 LegalCopyright = "Copyright © 2026 Purslane Tech Pte. Ltd. All rights reserved."
-ProductName = "Remotesupport SYSINFRA"
-OriginalFilename = "Remotesupport SYSINFRA.exe"
-FileDescription = "Remotesupport SYSINFRA"
+ProductName = "Fernwartung SYSINFRA"
+OriginalFilename = "Fernwartung SYSINFRA.exe"
+FileDescription = "Fernwartung SYSINFRA"
 #ProductVersion = ""
 
 [target.'cfg(target_os="windows")'.build-dependencies]
